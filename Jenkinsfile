@@ -1,10 +1,13 @@
 pipeline {
-  agent any
+  agent none
 
   stages {
-    stage('Hello') {
+    stage('Run Soap UI') {
+      agent {
+        docker { image 'ddavison/soapui:5.4.0'}
+      }
       steps {
-        sh 'echo hello'
+        sh 'curl --form "project=@soapui-project.xml" http://localhost:3000'
       }
     }
   }
